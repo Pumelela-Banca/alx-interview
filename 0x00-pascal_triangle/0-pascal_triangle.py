@@ -14,7 +14,7 @@ def pascal_triangle(n):
 
     all_list = [[1], [1, 1]]
     if n == 1:
-        return [1]
+        return [[1]]
     elif n == 2:
         return all_list
     else:
