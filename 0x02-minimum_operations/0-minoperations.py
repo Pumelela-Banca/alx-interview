@@ -7,7 +7,7 @@ minimum operations to get to text
 def minOperations(n):
     """
     minimum operations to get to n H's
-    """
+    
     if n <= 0:
         return 0
     if n == 1:
@@ -29,3 +29,16 @@ def minOperations(n):
         if new_num % divider == 0 and new_num != divider:
             continue
         return int(count_half + new_num)
+    """
+    if n <= 1:
+        return 0
+    else:
+        halfs = 2
+        c = 0
+        while halfs <= n:
+            if n % halfs == 0:
+                c += halfs
+                n = n / halfs
+            else:
+                halfs += 1
+        return c
