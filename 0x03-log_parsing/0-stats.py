@@ -8,12 +8,18 @@ from collections import defaultdict
 
 
 def print_metrics(file_size, status_codes):
+    """
+    prints results
+    """
     print(f'File size: {file_size}')
     for code in sorted(status_codes.keys()):
         print(f'{code}: {status_codes[code]}')
 
 
 def main():
+    """
+    listens to stdin and prints results
+    """
     file_size = 0
     status_codes = defaultdict(int)
     line_count = 0
