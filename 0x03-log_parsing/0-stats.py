@@ -3,9 +3,6 @@
 Logs stdin operations
 """
 import sys
-from time import sleep
-import datetime
-import random
 import re
 from collections import defaultdict
 
@@ -23,7 +20,8 @@ def main():
 
     try:
         for line in sys.stdin:
-            match = re.match(r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line.strip())
+            match = re.match(
+                r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line.strip())
             if match:
                 status_code, size = match.groups()
                 file_size += int(size)
