@@ -36,3 +36,5 @@ def main():
         for code in sorted(status_codes.keys()):
             print(f'{code}: {status_codes[code]}')
         sys.exit(0)
+
+main()
