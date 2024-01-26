@@ -20,7 +20,8 @@ def main():
         for line in sys.stdin:
             match = re.match(
                 r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$', line.strip())
-            if match:
+
+            if match and int(line.strip().split(" ")[-2]) in [200, 301, 400, 401, 403, 404, 405, 500]:
                 status_code, size = match.groups()
                 file_size += int(size)
                 status_codes[status_code] += 1
@@ -36,5 +37,6 @@ def main():
         for code in sorted(status_codes.keys()):
             print(f'{code}: {status_codes[code]}')
         sys.exit(0)
+
 
 main()
