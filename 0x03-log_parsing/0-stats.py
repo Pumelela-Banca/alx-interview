@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Logs stdin operations
+Logs stdin operations by using inputs from
+other files
 """
 import sys
 import re
