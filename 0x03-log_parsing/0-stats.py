@@ -15,7 +15,7 @@ def print_statistics(total_size, status_code_counts):
     for code in status_code_counts.keys():
         if status_code_counts[code] == 0:
             continue
-        print(f"{code}: {status_code_counts[code]}")
+        print(code, ": ",status_code_counts[code], sep="")
 
 
 line_number = 0
@@ -25,10 +25,11 @@ times = []
 n_of_counts = {f"{x}": 0 for x in codes}
 try:
     for line in sys.stdin:
-        line_number += 1
-        if line_number % 10 == 0:
-            print_statistics(sum_all, n_of_counts)
 
+        if line_number == 10:
+            print_statistics(sum_all, n_of_counts)
+            line_number = 0
+        line_number += 1
         args = line.split()
         if len(args) not in [8, 9]:
             continue
