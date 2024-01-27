@@ -27,20 +27,21 @@ try:
         args = line.split()
         if len(args) != 9:
             continue
-        if not re.match(r"(\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b)",
-                        line[0]):
-            continue
-        if not re.match(r"(\\b[0-9]{4}-[0-1][0-9]-[0-3][0-9]\\b)",
-                        line[0]):
+        if not re.match(r"^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$",
+                        args[0]):
+            # not ip match
             continue
         spc = " "
-        if args[4] + spc + args[5] + spc + args [6] \
-                + spc + args[7] != '"GET /projects/260 HTTP/1.1"':
+        if args[4] + spc + args[5] + spc + args[6] \
+                + spc != '"GET /projects/260 HTTP/1.1" ':
             continue
         if args[1] != "-":
             continue
-        if not re.match(r"(\\b[0-9]{4}-[0-1][0-9]-[0-3][0-9]\\b)",
-                        args[2].lstrip()):
+        if not re.match(r"([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))",
+                        args[2].lstrip("[")):
+            # not date match
+            continue
+        if int(args[7]) not in codes:
             continue
 
         sum_all += int(args[-1])
