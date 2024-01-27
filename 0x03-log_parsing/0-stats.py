@@ -3,8 +3,9 @@
 Logs stdin operations by using inputs from
 other files
 """
-
 import sys
+import re
+
 
 
 def print_statistics(total_size, status_code_counts):
@@ -24,6 +25,24 @@ n_of_counts = {}
 try:
     for line in sys.stdin:
         args = line.split()
+        if len(args) != 9:
+            continue
+        if not re.match(r"(\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b)",
+                        line[0]):
+            continue
+        if not re.match(r"(\\b[0-9]{4}-[0-1][0-9]-[0-3][0-9]\\b)",
+                        line[0]):
+            continue
+        spc = " "
+        if args[4] + spc + args[5] + spc + args [6] \
+                + spc + args[7] != '"GET /projects/260 HTTP/1.1"':
+            continue
+        if args[1] != "-":
+            continue
+        if not re.match(r"(\\b[0-9]{4}-[0-1][0-9]-[0-3][0-9]\\b)",
+                        args[2].lstrip()):
+            continue
+
         sum_all += int(args[-1])
         times.append(int(args[-2]))
         line_number += 1
