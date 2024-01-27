@@ -12,7 +12,7 @@ def print_statistics(total_size, status_code_counts):
     print format
     """
     print(f"File size: {total_size}")
-    for code in sorted(status_code_counts):
+    for code in status_code_counts.keys():
         if status_code_counts[code] == 0:
             continue
         print(f"{code}: {status_code_counts[code]}")
