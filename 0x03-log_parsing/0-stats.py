@@ -30,7 +30,7 @@ try:
             print_statistics(sum_all, n_of_counts)
             line_number = 0
         line_number += 1
-        args = line.split()
+        args = line.rstrip("\n").split()
         if len(args) not in [8, 9]:
             continue
         if not re.match(
