@@ -3,41 +3,41 @@
 Logs stdin operations by using inputs from
 other files
 """
+
 import sys
-import re
-from collections import defaultdict
 
 
-def main():
+def print_statistics(total_size, status_code_counts):
     """
-    listens to stdin and prints results
+    print format
     """
-    file_size = 0
-    status_codes = defaultdict(int)
-    line_count = 0
-
-    try:
-        for line in sys.stdin:
-            match = re.match(
-                r'^\S+ - \[\S+\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)$',
-                line.strip())
-
-            if match and int(line.strip().split(" ")[-2]) in [200, 301, 400, 401, 403, 404, 405, 500]:
-                status_code, size = match.groups()
-                file_size += int(size)
-                status_codes[status_code] += 1
-                line_count += 1
-
-            if line_count % 10 == 0:
-                print(f'File size: {file_size}')
-                for code in sorted(status_codes.keys()):
-                    print(f'{code}: {status_codes[code]}')
-
-    except KeyboardInterrupt:
-        print(f'File size: {file_size}')
-        for code in sorted(status_codes.keys()):
-            print(f'{code}: {status_codes[code]}')
-        sys.exit(0)
+    print(f"File size: {total_size}")
+    for code in sorted(status_code_counts):
+        print(f"{code}: {status_code_counts[code]}")
 
 
-main()
+line_number = 0
+codes = [200, 301, 400, 401, 403, 404, 405, 500]
+sum_all = 0
+times = []
+n_of_counts = {}
+try:
+    for line in sys.stdin:
+        args = line.split()
+        sum_all += int(args[-1])
+        times.append(int(args[-2]))
+        line_number += 1
+
+        if line_number % 10 == 0:
+            for i in sorted(times):
+                if i is None or not isinstance(i, int):
+                    continue
+                if i in n_of_counts and i in codes:
+                    n_of_counts[i] += 1
+                else:
+                    n_of_counts[i] = 1
+            print_statistics(sum_all, n_of_counts)
+            times.clear()
+except KeyboardInterrupt:
+    print_statistics(sum_all, n_of_counts)
+    sys.exit(0)
