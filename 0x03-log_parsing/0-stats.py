@@ -13,7 +13,7 @@ def print_statistics(total_size, status_code_counts):
     """
     print(f"File size: {total_size}")
     for code in sorted(status_code_counts):
-        if status_code_counts[code] <= 0:
+        if status_code_counts[code] == 0:
             continue
         print(f"{code}: {status_code_counts[code]}")
 
@@ -51,7 +51,7 @@ try:
         sum_all += int(args[-1])
         if len(args) == 8:
             continue
-        n_of_counts[str(args[-2])] += 1
+        n_of_counts[args[-2]] += 1
 except KeyboardInterrupt:
     print_statistics(sum_all, n_of_counts)
     sys.exit(0)
