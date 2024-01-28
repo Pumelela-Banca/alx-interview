@@ -23,6 +23,7 @@ codes = [200, 301, 400, 401, 403, 404, 405, 500]
 sum_all = 0
 times = []
 n_of_counts = {f"{x}": 0 for x in codes}
+
 try:
     for line in sys.stdin:
 
