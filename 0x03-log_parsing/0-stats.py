@@ -12,10 +12,12 @@ def print_statistics(total_size, status_code_counts):
     print format
     """
     print(f"File size: {total_size}")
+    sys.stdin.flush()
     for code in status_code_counts.keys():
         if status_code_counts[code] == 0:
             continue
-        print(code, ": ", status_code_counts[code], sep="")
+        print(f"{code}: {status_code_counts[code]}")
+        sys.stdin.flush()
 
 
 line_number = 0
@@ -58,4 +60,4 @@ try:
         n_of_counts[args[-2]] += 1
 except KeyboardInterrupt:
     print_statistics(sum_all, n_of_counts)
-    sys.exit(0)
+    sys.stdin.flush()
