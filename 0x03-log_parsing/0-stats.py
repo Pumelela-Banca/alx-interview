@@ -58,4 +58,4 @@ try:
         n_of_counts[args[-2]] += 1
 except KeyboardInterrupt:
     print_statistics(sum_all, n_of_counts)
-    sys.stdin.flush()
+    sys.exit(0)
