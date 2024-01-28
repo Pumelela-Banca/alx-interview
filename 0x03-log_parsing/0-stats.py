@@ -11,13 +11,11 @@ def print_statistics(total_size, status_code_counts):
     """
     print format
     """
-    sys.stdout.write(f"File size: {total_size}")
-    sys.stdin.flush()
+    print(f"File size: {total_size}")
     for code in status_code_counts.keys():
         if status_code_counts[code] == 0:
             continue
-        sys.stdout.write(f"{code}: {status_code_counts[code]}")
-        sys.stdin.flush()
+        print(f"{code}: {status_code_counts[code]}")
 
 
 line_number = 0
