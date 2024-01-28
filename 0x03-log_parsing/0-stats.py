@@ -15,7 +15,7 @@ def print_statistics(total_size, status_code_counts):
     for code in status_code_counts.keys():
         if status_code_counts[code] == 0:
             continue
-        print(code, ": ",status_code_counts[code], sep="")
+        print(code, ": ", status_code_counts[code], sep="")
 
 
 line_number = 0
