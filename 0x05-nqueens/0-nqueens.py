@@ -1,21 +1,30 @@
 #!/usr/bin/python3
 """
-Queens
+Solving N-queens using recussion
 """
 import sys
 
 
 def print_solution(board):
+    """
+    Prints solution and positions
+    """
     solution = [[i, board[i]] for i in range(len(board))]
     print(solution)
 
 def is_safe(board, row, col):
+    """
+    Checks cross and diagonals
+    """
     for i in range(col):
         if board[i] == row or board[i] - i == row - col or board[i] + i == row + col:
             return False
     return True
 
 def solve_n_queens(board, col):
+    """
+    Place queens and back up  if there are conflics
+    """
     N = len(board)
     if col == N:
         print_solution(board)
@@ -27,6 +36,9 @@ def solve_n_queens(board, col):
             solve_n_queens(board, col + 1)
 
 def check_args():
+    """
+    Checks command line
+    """
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
@@ -43,6 +55,9 @@ def check_args():
     return N
 
 def main():
+    """
+    Main entry of module
+    """
     N = check_args()
     board = [-1] * N
     solve_n_queens(board, 0)
