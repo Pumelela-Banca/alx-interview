@@ -18,8 +18,8 @@ def is_safe(board, row, col):
     Checks cross and diagonals
     """
     for i in range(col):
-        if (board[i] == row or board[i]
-                        - i == row - col or board[i] + i == row + col):
+        if (board[i] == row or board[i] - i ==
+                row - col or board[i] + i == row + col):
             return False
     return True
 
