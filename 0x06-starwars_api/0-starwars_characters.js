@@ -11,7 +11,7 @@ request('https://swapi-api.alx-tools.com/api/films', (error, body) => {
   }
   let jsonObject = JSON.parse(body.body);
   for (let names of jsonObject.results) {
-    if (names.episode_id == id) {
+    if (names.episode_id === id) {
       char_names = names.characters;
       break;
     }}
