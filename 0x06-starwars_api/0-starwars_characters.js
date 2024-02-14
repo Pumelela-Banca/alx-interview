@@ -3,7 +3,7 @@
 
 const request = require('request');
 let id = Number(process.argv[2]);
-
+let char_names;
 
 request('https://swapi-api.alx-tools.com/api/films', (error, body) => {
   if (error) {
@@ -12,7 +12,7 @@ request('https://swapi-api.alx-tools.com/api/films', (error, body) => {
   let jsonObject = JSON.parse(body.body);
   for (let names of jsonObject.results) {
     if (names.episode_id == id) {
-      var char_names = names.characters;
+      char_names = names.characters;
       break;
     }}
   for (let specific_url of char_names) {
