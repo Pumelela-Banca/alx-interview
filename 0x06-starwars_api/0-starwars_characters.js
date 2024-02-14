@@ -17,6 +17,9 @@ request('https://swapi-api.alx-tools.com/api/films', (error, body) => {
     }}
   for (let specific_url of char_names) {
     request(specific_url, (error, data) => {
+      if (error) {
+        console.error('An error occurred:', error);
+      }
       let actor = JSON.parse(data.body);
       console.log(actor.name);
     });
