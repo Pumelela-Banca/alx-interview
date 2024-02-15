@@ -2,32 +2,29 @@
 // Prints all  characters of a star-wars movie
 
 const request = require('request');
-const util = require('util');
-let id = Number(process.argv[2]);
+const url = 'https://swapi-api.hbtn.io/api/films/';
+const pross = require('process');
 
-request('https://swapi-api.alx-tools.com/api/films', async (error, response, body) => {
-  if (error) {
-    console.error('An error occurred:', error);
-    return;
-  }
-  let jsonObject = JSON.parse(body);
-  let char_names;
-  for (let names of jsonObject.results) {
-    if (names.episode_id === id) {
-      char_names = names.characters;
-      break;
+if (pross.argv.length > 2) {
+  request(url + pross.argv[2], function (error, response, body) {
+    if (error) {
+      console.log(error);
     }
-  }
-  const requestPromise = util.promisify(request);
-  async function makeRequestsInOrder(urls) {
-    for (let url of urls) {
-      try {
-        const response = await requestPromise(url);
-        console.log(JSON.parse(response.body).name);
-      } catch (error) {
-        console.error(`An error occurred while making a request to ${url}:`, error);
-      }
-    }
-  }
-  await makeRequestsInOrder(char_names);
-});
+    const charactersURL = JSON.parse(body).characters;
+    const charactersName = charactersURL.map(
+      (url) =>
+        new Promise((resolve, reject) => {
+          request(url, (promiseErr, __, charactersReqBody) => {
+            if (promiseErr) {
+              reject(promiseErr);
+            }
+            resolve(JSON.parse(charactersReqBody).name);
+          });
+        })
+    );
+
+    Promise.all(charactersName)
+      .then((names) => console.log(names.join('\n')))
+      .catch((allErr) => console.log(allErr));
+  });
+}
