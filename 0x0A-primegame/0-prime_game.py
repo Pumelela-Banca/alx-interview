@@ -8,7 +8,10 @@ def isWinner(x, nums):
     """
     prime game function.
     """
-    def look_for(n):
+    maria_wins = 0
+    ben_wins = 0
+
+    for i, n in enumerate(nums, start=1):
         primes = [True for i in range(n + 1)]
         p = 2
         while p * p <= n:
@@ -16,13 +19,7 @@ def isWinner(x, nums):
                 for i in range(p * p, n + 1, p):
                     primes[i] = False
             p += 1
-        return [p for p in range(2, n) if primes[p]]
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for i, n in enumerate(nums, start=1):
-        primes = look_for(n)
+        primes = [p for p in range(2, n) if primes[p]]
         turn = 0
         while len(primes) > 0:
             prime = primes[0]
